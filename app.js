@@ -999,50 +999,109 @@ const state = {
 // 超时惩罚：讨论超时未决策时，攻击者利用窗口期造成的指标损失
 const TIMEOUT_PENALTY = { security: -6, production: -4, reputation: -4 };
 
-// 补救措施：仅在推荐动作检定失败后可选，按事件检定类型定制。
+// 补救措施：仅在推荐动作检定失败后可选，按“具体事件 + 失败原因”定制。
 // 补救稳定生效（不再二次检定），净收益约 +1，体现“止损仍有代价”。
-const REMEDIATION_OPTIONS = {
-  awareness: [
-    {
-      id: "aw1",
-      text: "补强证据链并组织复盘",
-      delta: { security: 0, production: -1, reputation: 2 },
-      resultText: "事后补齐了证据与时间线，对外口径重新可信，但复盘占用了产线协同资源。",
-    },
-    {
-      id: "aw2",
-      text: "面向全员发布预警通报",
-      delta: { security: 1, production: -1, reputation: 1 },
-      resultText: "扩大预警面收敛了后续暴露，各方口径统一，但临时管控拖慢了现场节奏。",
-    },
+// 键为事件 id，每个事件提供 2 条针对性补救。
+const EVENT_REMEDIATION = {
+  event_01: [
+    { id: "e01a", text: "连夜封停涉事账号并强制重置凭据", delta: { security: 2, production: -1, reputation: 0 }, resultText: "封停财务主管账号、强制改密后，横向移动被截断，但夜班部分登录被误锁，产线协同短时受扰。" },
+    { id: "e01b", text: "拉通 IT/OT 联合排查并向上升级通报", delta: { security: 1, production: -1, reputation: 1 }, resultText: "补齐了联合排查与升级通报，责任链清晰，各方口径统一，但排查占用了夜班资源。" },
   ],
-  control: [
-    {
-      id: "ct1",
-      text: "紧急隔离并加固入口",
-      delta: { security: 2, production: -1, reputation: 0 },
-      resultText: "停机收紧了关键入口，边界重新收回控制，代价是产出短时受影响。",
-    },
-    {
-      id: "ct2",
-      text: "补办临时授权并留审计",
-      delta: { security: 1, production: -1, reputation: 1 },
-      resultText: "把越权的例外拉回受控流程，责任链清晰起来，但补流程占用了作业时间。",
-    },
+  event_02: [
+    { id: "e02a", text: "立即关停常开远程通道并全量审计", delta: { security: 2, production: -1, reputation: 0 }, resultText: "切断长期敞开的远程入口并回溯操作日志，接入边界收回，但参数修复被迫推迟。" },
+    { id: "e02b", text: "补签受控接入协议后限时开放", delta: { security: 1, production: -1, reputation: 1 }, resultText: "把供应商接入拉回可审计、可回收的协议下，责任明确，但流程补办压缩了修复窗口。" },
   ],
-  recovery: [
-    {
-      id: "rc1",
-      text: "切换受控降级运行",
-      delta: { security: 0, production: 2, reputation: -1 },
-      resultText: "先用受控降级保住了产出，但对外口径一致性打了折扣。",
-    },
-    {
-      id: "rc2",
-      text: "补做一次恢复演练",
-      delta: { security: 1, production: 1, reputation: -1 },
-      resultText: "补验了恢复能力，安全与产出更有底，但对外承诺被迫暂缓。",
-    },
+  event_03: [
+    { id: "e03a", text: "扩大隔离范围并正式启动应急响应", delta: { security: 2, production: -1, reputation: 0 }, resultText: "把受影响网段整体隔离并启动应急响应，勒索扩散被摁住，但更多线体短时停摆。" },
+    { id: "e03b", text: "统一对内通报口径并同步升级", delta: { security: 1, production: -1, reputation: 1 }, resultText: "统一了对内通报与升级路径，恐慌被压住，但协调过程拖慢了处置节奏。" },
+  ],
+  event_04: [
+    { id: "e04a", text: "对关键产线补做受控停线检查", delta: { security: 2, production: -1, reputation: 0 }, resultText: "补停关键产线做隔离检查，工程站可信度得到确认，安全边界收回，但当日交付进一步承压。" },
+    { id: "e04b", text: "同步启动交付延期沟通预案", delta: { security: 0, production: 2, reputation: -1 }, resultText: "用交付预案稳住客户并局部维持产出，产能保住，但对外承诺口径打了折扣。" },
+  ],
+  event_05: [
+    { id: "e05a", text: "由统一发言人发布可信进展说明", delta: { security: 0, production: -1, reputation: 2 }, resultText: "统一口径、给出更新时间点后，客户重新拿到可信信息，但内部协调占用了作业资源。" },
+    { id: "e05b", text: "补齐证据与影响面再回复客户", delta: { security: 1, production: -1, reputation: 1 }, resultText: "先核清影响面再回应，承诺不超范围，信任回稳，但核实耗费了时间。" },
+  ],
+  event_06: [
+    { id: "e06a", text: "重整战情口径，按事实/假设/行动汇报", delta: { security: 0, production: -1, reputation: 2 }, resultText: "把汇报拆成事实、假设与行动，并给出更新时间点，上层重新有效监督，但整理占用了处置精力。" },
+    { id: "e06b", text: "设立单一发言口并补齐关键数字", delta: { security: 1, production: -1, reputation: 1 }, resultText: "收敛为单一发言口并补齐缺口数字，多头发声被止住，但补数据拖慢了节奏。" },
+  ],
+  event_07: [
+    { id: "e07a", text: "隔离相关批次并补全追溯核对", delta: { security: 1, production: -1, reputation: 1 }, resultText: "把缺记录批次隔离并补做追溯核对，质量风险留在厂内，但放行被推迟、当日出货受影响。" },
+    { id: "e07b", text: "启动降级放行并加严出厂抽检", delta: { security: 0, production: 2, reputation: -1 }, resultText: "以加严抽检为条件降级放行，产出保住，但追溯完整性上仍留了尾巴。" },
+  ],
+  event_08: [
+    { id: "e08a", text: "锁定控制区并复核身份工单后再放行", delta: { security: 2, production: -1, reputation: 0 }, resultText: "先锁住控制区、核实身份与工单再登记放行，物理边界收回，但设备抢修被延后。" },
+    { id: "e08b", text: "安排专人陪同并全程留痕作业", delta: { security: 1, production: -1, reputation: 1 }, resultText: "以专人陪同、全程留痕的方式受控作业，责任清晰，但陪同占用了现场人力。" },
+  ],
+  event_09: [
+    { id: "e09a", text: "冻结工程站变更并比对参数基线", delta: { security: 2, production: -1, reputation: 0 }, resultText: "冻结工程站、比对基线后确认改动来源，安全收回，但相关设备短停影响了产出。" },
+    { id: "e09b", text: "留存证据后受控回退可疑参数", delta: { security: 1, production: -1, reputation: 1 }, resultText: "先留存证据再受控回退参数，既保住可追责性又稳住良率，但处置流程占用了时间。" },
+  ],
+  event_10: [
+    { id: "e10a", text: "收紧降级边界并补齐补偿记录", delta: { security: 1, production: -1, reputation: 1 }, resultText: "把降级限定在有预案的产线并补齐手工补偿记录，追溯稳住，但产出节奏被压了一档。" },
+    { id: "e10b", text: "扩大受控降级范围优先保产", delta: { security: 0, production: 2, reputation: -1 }, resultText: "在补偿控制下扩大降级范围优先保产，产能顶住，但对外口径一致性打了折扣。" },
+  ],
+  event_11: [
+    { id: "e11a", text: "先验证最近一次成功恢复证据", delta: { security: 1, production: -1, reputation: 1 }, resultText: "补验最近一次成功恢复的证据后再定隔离范围，恢复承诺有了依据，但验证拖慢了节奏。" },
+    { id: "e11b", text: "按保守恢复时间对外承诺并加缓冲", delta: { security: 0, production: -1, reputation: 2 }, resultText: "改用保守恢复时间对外承诺并留缓冲，信任回稳，但恢复窗口占用了协同资源。" },
+  ],
+  event_12: [
+    { id: "e12a", text: "发布统一说明、要求与上报渠道", delta: { security: 0, production: -1, reputation: 2 }, resultText: "补发统一说明、明确要求与上报渠道后，谣言收敛、秩序回稳，但通告协调占用了作业时间。" },
+    { id: "e12b", text: "分层落实通告并核实到岗执行", delta: { security: 1, production: -1, reputation: 1 }, resultText: "分层落实并核实到岗执行，现场误读明显减少，但逐级核实拖慢了节奏。" },
+  ],
+  event_13: [
+    { id: "e13a", text: "立即回收超发权限并设失效时间", delta: { security: 2, production: -1, reputation: 0 }, resultText: "回收超发的高权限并补设失效时间与复核人，后门被关上，但夜班排障被压缩。" },
+    { id: "e13b", text: "补签最小授权单并指定复核人", delta: { security: 1, production: -1, reputation: 1 }, resultText: "补签最小范围授权单并指定复核，责任链补齐，但补流程占用了排障窗口。" },
+  ],
+  event_14: [
+    { id: "e14a", text: "立即收回转岗/离职冗余权限", delta: { security: 2, production: -1, reputation: 0 }, resultText: "对照岗位需要收回冗余权限并留痕，已知敞口收窄，但跨部门确认占用了业务时间。" },
+    { id: "e14b", text: "补建复核台账并留痕闭环", delta: { security: 1, production: -1, reputation: 1 }, resultText: "补建访问复核台账并留痕闭环，组织变更落到权限上，但台账整理拖慢了推进。" },
+  ],
+  event_15: [
+    { id: "e15a", text: "封存共享账号并改为单人领取改密", delta: { security: 2, production: -1, reputation: 0 }, resultText: "封存共享账号、改为单人领取并事后改密，操作可追溯，但应急排查一度被打断。" },
+    { id: "e15b", text: "补做操作留痕与旁站复核", delta: { security: 1, production: -1, reputation: 1 }, resultText: "补上旁站记录与事后复核，责任链和追踪能力保住，但流程稍显笨重占用了时间。" },
+  ],
+  event_16: [
+    { id: "e16a", text: "回撤放通端口并限定源目地址时段", delta: { security: 2, production: -1, reputation: 0 }, resultText: "回撤全放通、改为限定源目地址与时段，边界收回，但试运行进度受了影响。" },
+    { id: "e16b", text: "补齐安全评估后再决定是否保留", delta: { security: 1, production: -1, reputation: 1 }, resultText: "补齐评估与回退方案后再定去留，例外变成受控窗口，但评估占用了项目时间。" },
+  ],
+  event_17: [
+    { id: "e17a", text: "补齐双人审批并保留会话审计", delta: { security: 2, production: -1, reputation: 0 }, resultText: "补齐业务与技术双人审批、保留会话审计，远程访问重新被两道视角看住，但维护窗口被压缩。" },
+    { id: "e17b", text: "限定访问时段并事后复核操作", delta: { security: 1, production: -1, reputation: 1 }, resultText: "限定访问时段并事后复核操作记录，责任界面清晰，但复核占用了周末窗口。" },
+  ],
+  event_18: [
+    { id: "e18a", text: "撤回接入并经隔离专机重新导入", delta: { security: 2, production: -1, reputation: 0 }, resultText: "撤回直接接入、改由隔离专机扫描后导入，未知介质被挡在控制区外，但调试被推迟。" },
+    { id: "e18b", text: "补走例外审批并留存导入记录", delta: { security: 1, production: -1, reputation: 1 }, resultText: "补走例外审批并留存导入记录，介质接入可追责，但审批流程占用了调试时间。" },
+  ],
+  event_19: [
+    { id: "e19a", text: "回退临时逻辑并要求同侪复核", delta: { security: 2, production: -1, reputation: 0 }, resultText: "回退临时改动、要求同侪复核与回退点确认，控制逻辑拉回可复核轨道，但设备等待复核期间停着。" },
+    { id: "e19b", text: "补做回退方案与变更留痕", delta: { security: 1, production: -1, reputation: 1 }, resultText: "补齐回退方案与变更留痕后再上线，隐患受控，但评审占用了上线节奏。" },
+  ],
+  event_20: [
+    { id: "e20a", text: "缩小范围优先补高危漏洞", delta: { security: 2, production: -1, reputation: 0 }, resultText: "把维护缩到高危点优先修补，关键暴露面收回，但月末冲量的产出被挤占了一部分。" },
+    { id: "e20b", text: "延期打补丁但布置替代控制", delta: { security: 0, production: 2, reputation: -1 }, resultText: "决定延期并布置替代控制以保交付，产能顶住，但延期决定让对外风险口径承压。" },
+  ],
+  event_21: [
+    { id: "e21a", text: "按剩余工作限期延期并重新审批", delta: { security: 2, production: -1, reputation: 0 }, resultText: "把延期改成带期限、带条件的重新授权，账号不再惯性长驻，但重新审批占用了协调时间。" },
+    { id: "e21b", text: "补建到期回收与复核责任人", delta: { security: 1, production: -1, reputation: 1 }, resultText: "补建到期回收机制并指定复核责任人，供应商账号纳入管控，但补流程拖慢了维护。" },
+  ],
+  event_22: [
+    { id: "e22a", text: "受控停用沉睡账号并观察影响", delta: { security: 2, production: -1, reputation: 0 }, resultText: "在受控范围停用沉睡高权账号并观察影响，遗留敞口收窄，但排查老脚本占用了运维精力。" },
+    { id: "e22b", text: "制定分阶段下线与验证计划", delta: { security: 1, production: -1, reputation: 1 }, resultText: "补出分阶段下线与验证计划，遗留权限进入可控流程，但计划成型占用了时间。" },
+  ],
+  event_23: [
+    { id: "e23a", text: "带问题签收并锁定整改时限责任人", delta: { security: 1, production: -1, reputation: 1 }, resultText: "把演练发现拉进整改闭环、明确时限与复测，恢复能力真正受益，但整改增加了管理动作。" },
+    { id: "e23b", text: "补做关键配置备份与恢复复测", delta: { security: 2, production: -1, reputation: 0 }, resultText: "补做遗漏配置的备份并复测恢复时间，恢复底数补齐，但复测占用了产线协同资源。" },
+  ],
+  event_24: [
+    { id: "e24a", text: "引入独立审批拆分提出/执行角色", delta: { security: 2, production: -1, reputation: 0 }, resultText: "为高风险动作引入独立审批、拆开提出与执行，第二层监督补上，但协调多了一步、推进略慢。" },
+    { id: "e24b", text: "安排旁站复核并留痕关键操作", delta: { security: 1, production: -1, reputation: 1 }, resultText: "保留专家主导但安排旁站复核并留痕，职责边界清晰起来，但复核占用了作业时间。" },
+  ],
+  event_25: [
+    { id: "e25a", text: "退回结论并要求补齐日志时间线", delta: { security: 1, production: -1, reputation: 1 }, resultText: "退回“看起来没事”的结论、要求补齐日志与时间线，经营判断更稳，但补证据占用了时间。" },
+    { id: "e25b", text: "调取原始记录独立核验截图", delta: { security: 2, production: -1, reputation: 0 }, resultText: "独立调取原始记录核验截图真伪，模糊画面不再替代证据，但核验拖慢了会议决策。" },
   ],
 };
 
@@ -1287,6 +1346,9 @@ function render() {
   if (state.screen === "event") renderEvent();
   if (state.screen === "result") renderResult();
   if (state.screen === "final") renderFinal();
+
+  // 切换页面后默认回到顶部
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
 }
 
 function phaseText() {
@@ -1394,7 +1456,8 @@ function renderResult() {
     ? "检定成功"
     : outcome.type === "failure"
       ? "检定失败"
-      : "直接结算";
+      : "非最优处置";
+  document.getElementById("resultPill").className = passed ? "result-pill" : "result-pill bad";
   const triggered = outcome.type !== "direct";
   document.getElementById("diceFace").textContent = triggered ? (passed ? "达标" : "未达") : "直判";
   document.getElementById("resultFormula").textContent = triggered
@@ -1407,7 +1470,7 @@ function renderResult() {
   document.getElementById("reviewJudgement").innerHTML = buildReviewJudgement(judgement);
   banner.className = `battle-banner ${outcome.type}`;
   banner.textContent =
-    outcome.type === "success" ? "战报：稳住局面" : outcome.type === "failure" ? "战报：代价上升" : "战报：直接后果";
+    outcome.type === "success" ? "战报：稳住局面" : outcome.type === "failure" ? "战报：代价上升" : "战报：处置失当，非最优处置";
   document.getElementById("reportSteps").innerHTML = buildReportSteps(event, option, outcome, bonusRoles);
   document.getElementById("remediationBlock").innerHTML = buildRemediationBlock(state.result);
   const nextButton = document.getElementById("nextStepButton");
@@ -1422,7 +1485,7 @@ function renderResult() {
 
 function buildRemediationBlock(result) {
   if (!result || result.outcome.type !== "failure") return "";
-  const options = [...(REMEDIATION_OPTIONS[result.event.check] || []), REMEDIATION_ACCEPT];
+  const options = [...(EVENT_REMEDIATION[result.event.id] || []), REMEDIATION_ACCEPT];
 
   if (result.remediation) {
     const chosen = result.remediation;
@@ -1740,7 +1803,7 @@ function chooseOption(optionId) {
 
 function chooseRemediation(remediationId) {
   if (!state.result || state.result.outcome.type !== "failure" || state.result.remediation) return;
-  const pool = [...(REMEDIATION_OPTIONS[state.result.event.check] || []), REMEDIATION_ACCEPT];
+  const pool = [...(EVENT_REMEDIATION[state.result.event.id] || []), REMEDIATION_ACCEPT];
   const choice = pool.find((item) => item.id === remediationId);
   if (!choice) return;
   applyDelta(choice.delta);
