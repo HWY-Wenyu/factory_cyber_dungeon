@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>钢铁城防：管理层安全决策演练</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-icon" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div>
+            <p class="eyebrow">Factory Cyber Security Training</p>
+            <h1>钢铁城防</h1>
+          </div>
+        </div>
+        <div class="status-pill" id="phaseLabel">准备阶段</div>
+      </header>
+
+      <main id="app"></main>
+    </div>
+
+    <template id="screen-intro">
+      <section class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow accent">管理层网络安全决策游戏</p>
+          <h2>在不停产、控风险、保声誉之间守住这座工厂。</h2>
+          <p>
+            你将带领厂内管理团队，在 6 个连续事件中做出授权、隔离、停线、通报和恢复决策。
+            系统将替代主持人、卡牌、骰子和计分板，保留轻量跑团式推进与复盘。
+          </p>
+          <div class="hero-badges">
+            <span class="tag">像素指挥台</span>
+            <span class="tag">数字主持人</span>
+            <span class="tag">管理层场景</span>
+          </div>
+          <div class="hero-actions">
+            <button class="primary" data-action="start-briefing">开始演练</button>
+            <button class="ghost" data-action="open-help">查看玩法</button>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="metric-card">
+            <div class="metric-icon metric-hourglass" aria-hidden="true"></div>
+            <span>每局时长</span>
+            <strong>20-30 分钟</strong>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon metric-party" aria-hidden="true"></div>
+            <span>推荐人数</span>
+            <strong>4-8 人投屏共玩</strong>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon metric-shield" aria-hidden="true"></div>
+            <span>胜负逻辑</span>
+            <strong>安全 / 产能 / 声誉</strong>
+          </div>
+        </aside>
+      </section>
+    </template>
+
+    <template id="screen-help">
+      <section class="panel flow-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow accent">玩法说明</p>
+            <h2>轻规则数字跑团</h2>
+          </div>
+          <button class="ghost small" data-action="back-intro">返回</button>
+        </div>
+        <div class="grid-two">
+          <article class="info-card">
+            <h3>回合流程</h3>
+            <ol>
+              <li>阅读事件并讨论。</li>
+              <li>选择一项管理动作。</li>
+              <li>若触发检定，系统自动掷 d20。</li>
+              <li>结算安全、产能、声誉变化。</li>
+              <li>查看现实管理复盘。</li>
+            </ol>
+          </article>
+          <article class="info-card">
+            <h3>检定规则</h3>
+            <ul>
+              <li>`警觉 +2`：识别严重性与信息质量。</li>
+              <li>`控制 +2`：执行隔离、授权、边界收紧。</li>
+              <li>`恢复 +1`：降级运行、停线、恢复安排。</li>
+              <li>相关角色卡命中事件标签时提供 `+1` 加成。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </template>
+
+    <template id="screen-briefing">
+      <section class="panel flow-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow accent">背景导入</p>
+            <h2>灰炉智能制造基地</h2>
+          </div>
+          <button class="ghost small" data-action="back-intro">返回</button>
+        </div>
+        <div class="briefing-grid">
+          <article class="info-card large">
+            <p>
+              这是一座高度自动化工厂，依赖 MES、ERP、工程站和第三方远程维护维持产线稳定。
+              过去一年里，工厂为了保交付不断放宽例外流程。今晚，几条看似独立的异常开始连成一张网。
+            </p>
+            <p>
+              你的目标不是“全部零风险”，而是在经营压力下，做出经得起复盘的管理决策。
+            </p>
+          </article>
+          <div class="stack">
+            <article class="metric-card large">
+              <span>初始安全值</span>
+              <strong>8</strong>
+            </article>
+            <article class="metric-card large">
+              <span>初始产能值</span>
+              <strong>8</strong>
+            </article>
+            <article class="metric-card large">
+              <span>初始声誉值</span>
+              <strong>8</strong>
+            </article>
+          </div>
+        </div>
+        <div class="footer-actions">
+          <button class="primary" data-action="to-role-select">组建管理小组</button>
+        </div>
+      </section>
+    </template>
+
+    <template id="screen-roles">
+      <section class="panel flow-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow accent">角色配置</p>
+            <h2>选择 4 张管理视角卡</h2>
+          </div>
+          <div class="inline-actions">
+            <button class="ghost small" data-action="auto-pick-roles">随机 4 张</button>
+            <button class="ghost small" data-action="back-briefing">返回</button>
+          </div>
+        </div>
+        <p class="section-note">
+          角色卡用于限制讨论视角，并为命中事件标签的检定提供加成。
+        </p>
+        <div class="role-grid" id="roleGrid"></div>
+        <div class="footer-actions">
+          <div class="selection-hint" id="roleSelectionHint">已选择 0 / 4</div>
+          <button class="primary" id="startGameButton" data-action="start-game" disabled>进入值班夜</button>
+        </div>
+      </section>
+    </template>
+
+    <template id="screen-event">
+      <section class="game-layout">
+        <aside class="hud panel">
+          <div class="hud-head">
+            <p class="eyebrow">值班夜进度</p>
+            <h2 id="roundTitle"></h2>
+          </div>
+          <div class="score-stack" id="scoreStack"></div>
+          <div class="timer-card">
+            <span>讨论时间</span>
+            <strong id="timerValue">03:00</strong>
+            <div class="inline-actions wide">
+              <button class="ghost small" data-action="toggle-timer">开始计时</button>
+              <button class="ghost small" data-action="reset-timer">重置</button>
+            </div>
+          </div>
+          <div class="team-card">
+            <p class="eyebrow">当前管理小组</p>
+            <div id="selectedRolesMini" class="team-badges"></div>
+          </div>
+        </aside>
+        <section class="event-stage panel">
+          <div class="event-topline">
+            <div>
+              <p class="eyebrow accent" id="eventFocus"></p>
+              <h2 id="eventTitle"></h2>
+            </div>
+            <div class="check-badge" id="checkBadge"></div>
+          </div>
+          <div class="event-tags" id="eventTags"></div>
+          <div class="event-summary" id="eventSummary"></div>
+          <p class="event-copy" id="eventScenario"></p>
+          <div class="hint-strip">
+            <span>管理层提示</span>
+            <strong id="eventHint"></strong>
+          </div>
+          <div class="options-list" id="optionList"></div>
+        </section>
+      </section>
+    </template>
+
+    <template id="screen-result">
+      <section class="panel flow-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow accent">事件结算</p>
+            <h2 id="resultTitle"></h2>
+          </div>
+          <div class="result-pill" id="resultPill"></div>
+        </div>
+        <div class="result-grid">
+          <article class="dice-panel">
+            <div class="dice-face" id="diceFace">d20</div>
+            <div class="battle-banner" id="battleBanner"></div>
+            <div class="formula" id="resultFormula"></div>
+            <p class="narration" id="resultNarration"></p>
+          </article>
+          <article class="info-card">
+            <h3>指标变化</h3>
+            <div class="delta-list" id="deltaList"></div>
+            <h3>复盘判断</h3>
+            <div class="review-judgement" id="reviewJudgement"></div>
+            <h3>处置战报</h3>
+            <div class="report-steps" id="reportSteps"></div>
+            <h3>现实复盘</h3>
+            <p id="reviewText"></p>
+          </article>
+        </div>
+        <div class="footer-actions">
+          <button class="primary" id="nextStepButton" data-action="next-step">继续</button>
+        </div>
+      </section>
+    </template>
+
+    <template id="screen-final">
+      <section class="panel flow-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow accent">最终复盘</p>
+            <h2 id="finalOutcome"></h2>
+          </div>
+          <button class="ghost small" data-action="restart">重新开始</button>
+        </div>
+        <div class="result-grid">
+          <article class="info-card">
+            <h3>三项指标</h3>
+            <div class="score-stack" id="finalScoreStack"></div>
+            <p id="finalSummary"></p>
+          </article>
+          <article class="info-card">
+            <h3>本局管理画像</h3>
+            <div class="summary-tags" id="finalTags"></div>
+            <div class="log-list" id="finalLog"></div>
+          </article>
+        </div>
+        <div class="footer-actions">
+          <button class="primary" data-action="restart">再开一局</button>
+        </div>
+      </section>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
