@@ -990,7 +990,7 @@ const state = {
   selectedRoles: [],
   currentRound: 0,
   deck: [],
-  score: { security: 8, production: 8, reputation: 8 },
+  score: { security: 10, production: 10, reputation: 10 },
   result: null,
   log: [],
   timer: { total: 180, remaining: 180, active: false, intervalId: null, penalized: false },
@@ -1682,7 +1682,7 @@ function autoPickRoles() {
 }
 
 function startGame() {
-  state.score = { security: 8, production: 8, reputation: 8 };
+  state.score = { security: 10, production: 10, reputation: 10 };
   state.log = [];
   state.result = null;
   state.currentRound = 0;
@@ -1991,7 +1991,7 @@ function restart() {
   state.selectedRoles = [];
   state.currentRound = 0;
   state.deck = [];
-  state.score = { security: 8, production: 8, reputation: 8 };
+  state.score = { security: 10, production: 10, reputation: 10 };
   state.result = null;
   state.log = [];
   state.timer.penalized = false;
