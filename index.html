@@ -79,20 +79,22 @@
           <article class="info-card">
             <h3>回合流程</h3>
             <ol>
-              <li>阅读事件并讨论。</li>
-              <li>选择一项管理动作。</li>
-              <li>若触发检定，系统自动掷 d20。</li>
+              <li>进入回合后倒计时自动开始（燃烧进度条）。</li>
+              <li>阅读事件并在限时内讨论。</li>
+              <li>选择一项管理动作；若触发检定，系统自动掷 d20。</li>
               <li>结算安全、产能、声誉变化。</li>
-              <li>查看现实管理复盘。</li>
+              <li>查看检定机制与现实管理复盘。</li>
             </ol>
           </article>
           <article class="info-card">
-            <h3>检定规则</h3>
+            <h3>检定与超时机制</h3>
             <ul>
+              <li>检定：`基础能力 + 角色加成 + d20 ≥ 难度` 则成功。</li>
               <li>`警觉 +2`：识别严重性与信息质量。</li>
               <li>`控制 +2`：执行隔离、授权、边界收紧。</li>
               <li>`恢复 +1`：降级运行、停线、恢复安排。</li>
               <li>相关角色卡命中事件标签时提供 `+1` 加成。</li>
+              <li>超时：讨论超时未决策，攻击者利用窗口期，安全 `-4`、产能 `-2`、声誉 `-2`。</li>
             </ul>
           </article>
         </div>
@@ -170,11 +172,14 @@
             <h2 id="roundTitle"></h2>
           </div>
           <div class="score-stack" id="scoreStack"></div>
-          <div class="timer-card">
-            <span>讨论时间</span>
+          <div class="timer-card" id="timerCard">
+            <span>讨论倒计时（超时将遭受攻击）</span>
             <strong id="timerValue">03:00</strong>
+            <div class="fuse-track">
+              <div class="fuse-burn" id="fuseBurn"><span class="fuse-flame"></span></div>
+            </div>
             <div class="inline-actions wide">
-              <button class="ghost small" data-action="toggle-timer">开始计时</button>
+              <button class="ghost small" data-action="toggle-timer">暂停计时</button>
               <button class="ghost small" data-action="reset-timer">重置</button>
             </div>
           </div>
@@ -218,6 +223,7 @@
             <div class="battle-banner" id="battleBanner"></div>
             <div class="formula" id="resultFormula"></div>
             <p class="narration" id="resultNarration"></p>
+            <div class="check-mechanism" id="checkMechanism"></div>
           </article>
           <article class="info-card">
             <h3>指标变化</h3>
@@ -262,6 +268,20 @@
         </div>
       </section>
     </template>
+
+    <div id="cyberAlert" class="cyber-alert" hidden>
+      <div class="cyber-alert-card">
+        <div class="cyber-alert-glitch">SECURITY BREACH</div>
+        <p class="eyebrow">⚠ 安全告警</p>
+        <h2>决策超时，攻击者突破了窗口期</h2>
+        <p class="cyber-alert-copy">
+          你们讨论超时仍未下达处置指令。攻击者利用这段无人决策的窗口期横向移动，防线被迫承压。
+        </p>
+        <div class="cyber-alert-deltas" id="cyberAlertDeltas"></div>
+        <p class="cyber-alert-note">指标已自动扣减。你们仍需尽快选择一项处置动作，避免损失进一步扩大。</p>
+        <button class="primary" data-action="dismiss-alert">确认并立即处置</button>
+      </div>
+    </div>
 
     <script src="./app.js"></script>
   </body>

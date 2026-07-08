@@ -1156,3 +1156,213 @@ ul {
   }
 
 }
+
+/* ============ 燃烧倒计时进度条 ============ */
+.fuse-track {
+  position: relative;
+  width: 100%;
+  height: 14px;
+  margin: 12px 0 4px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.fuse-burn {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #5ab8a7 0%, #ecba57 55%, #d8695d 100%);
+  transition: width 1s linear;
+}
+
+.fuse-flame {
+  position: absolute;
+  top: 50%;
+  right: -3px;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff2c9 0%, #f4a259 45%, rgba(216, 105, 93, 0) 72%);
+  animation: flameFlicker 0.4s infinite alternate;
+}
+
+@keyframes flameFlicker {
+  from {
+    opacity: 0.65;
+    transform: translateY(-50%) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.25);
+  }
+}
+
+.timer-card.warning .fuse-burn {
+  background: linear-gradient(90deg, #ecba57, #d8695d);
+}
+
+.timer-card.danger {
+  animation: cardPulse 0.85s infinite;
+}
+
+.timer-card.danger .fuse-burn {
+  background: #d8695d;
+}
+
+.timer-card.expired .fuse-flame {
+  display: none;
+}
+
+.timer-card.expired strong {
+  color: #ffb1a6;
+}
+
+@keyframes cardPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(216, 105, 93, 0);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(216, 105, 93, 0.5);
+  }
+}
+
+/* ============ 网络攻击告警弹窗 ============ */
+.cyber-alert {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(6, 10, 14, 0.82);
+  backdrop-filter: blur(4px);
+}
+
+.cyber-alert[hidden] {
+  display: none;
+}
+
+.cyber-alert-card {
+  max-width: 460px;
+  width: 100%;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background: var(--panel-strong);
+  border: 1px solid rgba(216, 105, 93, 0.55);
+  box-shadow: 0 0 42px rgba(216, 105, 93, 0.38);
+  text-align: center;
+  animation: alertIn 0.25s ease;
+}
+
+@keyframes alertIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.cyber-alert-glitch {
+  font-weight: 900;
+  letter-spacing: 0.32em;
+  color: #ffb1a6;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  animation: glitch 0.7s infinite;
+}
+
+@keyframes glitch {
+  0%,
+  100% {
+    text-shadow: 2px 0 #d8695d, -2px 0 #5f9db6;
+  }
+  50% {
+    text-shadow: -2px 0 #d8695d, 2px 0 #5f9db6;
+  }
+}
+
+.cyber-alert-card h2 {
+  margin: 6px 0 12px;
+}
+
+.cyber-alert-copy {
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.55;
+}
+
+.cyber-alert-deltas {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.cyber-alert-deltas .delta-row {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(216, 105, 93, 0.12);
+  border: 1px solid rgba(216, 105, 93, 0.24);
+}
+
+.cyber-alert-note {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* ============ 检定机制说明 ============ */
+.check-mechanism {
+  margin-top: 12px;
+  text-align: left;
+}
+
+.mechanism-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.mechanism-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.mechanism-line strong {
+  color: var(--text);
+}
+
+.mechanism-line.total {
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+  font-weight: 700;
+}
+
+.mechanism-note {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.mechanism-note.bad {
+  color: #ffb1a6;
+}
+
+.mechanism-note strong {
+  color: #ffd1c9;
+}
+

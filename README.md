@@ -1,8 +1,26 @@
 # 钢铁城防网页原型
 
-## 启动
+## 在线访问
 
-在当前目录启动一个静态服务器：
+已部署到 GitHub Pages，任何人任何设备都可直接访问（不依赖本地电脑开机）：
+
+🔗 https://hwy-wenyu.github.io/factory_cyber_dungeon/
+
+仓库地址：https://github.com/HWY-Wenyu/factory_cyber_dungeon
+
+### 更新线上内容
+
+修改文件后，在项目目录执行以下命令，几十秒后线上自动更新：
+
+```bash
+git add .
+git commit -m "更新说明"
+git push
+```
+
+## 本地启动
+
+如需在本地运行（例如内网、离线或开发调试），在当前目录启动一个静态服务器：
 
 macOS：
 
@@ -16,6 +34,12 @@ Windows：
 ```powershell
 cd "C:\Users\hua.w\OneDrive - Procter and Gamble\Desktop\factory_cyber_dungeon\factory_cyber_dungeon"
 python -m http.server 8010
+```
+
+如果本机未安装 Python，只装了 Node.js，可用项目自带的极简服务器（无需任何依赖）：
+
+```bash
+node serve.js 8010
 ```
 
 然后在浏览器打开：
