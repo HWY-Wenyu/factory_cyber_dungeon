@@ -93,7 +93,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "处置及时，几条关键入口被封堵，攻击被挡在侦察阶段，没有横向扩散。",
-        failureText: "方向对，但联动慢了半拍，夜班只能在受限模式下维持运转。",
+        failureText: "处置方向没错，但团队里缺少能快速收敛账号与网络边界的 IT/OT 视角，封控慢了一步——攻击者利用这段时间从办公网向 MES 继续横向移动。",
       },
       { id: "B", text: "先让 IT 留意日志，避免夜班误停", effect: { security: -4, production: 0, reputation: 0 } },
       { id: "C", text: "仅通知生产值班经理，等更多迹象出现", effect: { security: -2, production: -2, reputation: 0 } },
@@ -121,7 +121,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "远程通道按时限、范围和审计受控开放，修完即回收，没有留下长期敞口。",
-        failureText: "流程对，但审批和执行稍慢，修复窗口被压缩。",
+        failureText: "受控开放的思路是对的，但缺少能同时界定供应商接入边界与审计要求的对口视角，通道在条件敲定前就开着，暴露窗口被拉长。",
       },
       { id: "D", text: "口头同意，由生产负责人盯着处理", effect: { security: -4, production: 0, reputation: 0 } },
     ],
@@ -148,7 +148,7 @@ const events = [
         success: { security: 1, production: -2, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "应急响应及时启动，受影响网段被隔离，用局部停摆换来了可控边界。",
-        failureText: "隔离动作及时，但现场切换仍带来了短时效率损失。",
+        failureText: "应急隔离方向正确，但缺少能主导网段隔离与事件升级的 IT/OT 视角，动作落在扩散之后——更多办公终端与排产报表在隔离到位前被加密。",
       },
     ],
   },
@@ -173,7 +173,7 @@ const events = [
         success: { security: 1, production: -2, reputation: 1 },
         failure: { security: 0, production: -4, reputation: 0 },
         successText: "关键产线短停到位，边界得到确认，交付沟通也提前备好了预案。",
-        failureText: "决策对，但现场恢复节奏比预期慢，出货压力抬升。",
+        failureText: "短时受控停线是对的，但缺少能果断拍板停线、协调交付的经营决策视角，关键产线在停线决定落地前继续带隐患运行。",
       },
       { id: "D", text: "继续生产，等出现明确异常再处置", effect: { security: -4, production: 0, reputation: 0 } },
     ],
@@ -198,7 +198,7 @@ const events = [
         success: { security: 0, production: 0, reputation: 2 },
         failure: { security: 0, production: 0, reputation: 1 },
         successText: "对外口径稳住了客户预期，也守住了后续沟通的可信度。",
-        failureText: "沟通方向对，但内部更新时间表还不够稳定。",
+        failureText: "承诺按时更新的方向没错，但缺少能把握对外口径与留痕尺度的合规视角，客户在收到可信更新前已自行解读，声誉承压。",
       },
       { id: "C", text: "暂不回复，等范围完全查清", effect: { security: 0, production: 0, reputation: -2 } },
       { id: "D", text: "先否认异常，避免客户扩大解读", effect: { security: 0, production: 0, reputation: -4 } },
@@ -226,7 +226,7 @@ const events = [
         success: { security: 0, production: 0, reputation: 2 },
         failure: { security: 0, production: 0, reputation: 1 },
         successText: "事实、假设和行动讲清楚了，上层能有效监督而不越位指挥。",
-        failureText: "结构对，但部分关键数字仍有较大缺口。",
+        failureText: "先报事实再报行动的结构是对的，但缺少能统一战情口径的合规与汇报视角，各部门在口径收敛前多头发声，上层信任打折。",
       },
     ],
   },
@@ -251,7 +251,7 @@ const events = [
         success: { security: 0, production: -2, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "问题批次被及时隔离核对，不确定性被挡在厂内，没有流到客户端。",
-        failureText: "处置对，但放行前核验耗时比预期更长。",
+        failureText: "暂缓放行、核对追溯是对的，但缺少能判断批次追溯完整性的质量视角，缺失记录的批次在核对完成前一直被催着逼近放行线。",
       },
       { id: "D", text: "由班组长签字确认后放行", effect: { security: 0, production: 0, reputation: -2 } },
     ],
@@ -275,7 +275,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 0 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "身份和工单复核到位，人员在登记受控下进入，入口没有失守。",
-        failureText: "复核耗了些时间，但没让未核实人员直接进入控制区。",
+        failureText: "受控进入的方向对，但缺少能快速核验身份工单、把守物理边界的安保视角，复核迟迟不到位，未登记人员在门岗持续施压。",
       },
       { id: "B", text: "先放进去，到了设备旁再补手续", effect: { security: -4, production: 0, reputation: 0 } },
       { id: "C", text: "让门岗拍照留底，其他先不管", effect: { security: -2, production: 0, reputation: 0 } },
@@ -303,7 +303,7 @@ const events = [
         success: { security: 1, production: -2, reputation: 0 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "先守住参数基线、再谈恢复速度，处置顺序稳妥。",
-        failureText: "核验影响了产线节奏，但避免了参数不透明地继续漂移。",
+        failureText: "核验参数来源的方向对，但缺少熟悉工程站基线与参数完整性的自动化视角，可疑参数在核验到位前继续拖着良率波动。",
       },
       { id: "D", text: "让现场把参数调回经验值再继续生产", effect: { security: -4, production: 0, reputation: -2 } },
     ],
@@ -329,7 +329,7 @@ const events = [
         success: { security: 0, production: 1, reputation: 0 },
         failure: { security: 0, production: 0, reputation: 0 },
         successText: "降级运行控制在有预案、有追溯的范围内，保住产出的同时守住了边界。",
-        failureText: "手工模式启动了，但现场补偿记录执行得不够整齐。",
+        failureText: "受控降级的思路是对的，但缺少能界定降级边界与补偿记录的生产恢复视角，手工模式在预案补齐前被现场推开，后续追溯更复杂。",
       },
       { id: "D", text: "各车间自行决定是否切换", effect: { security: 0, production: 0, reputation: -2 } },
     ],
@@ -354,7 +354,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "先核实了最近一次成功恢复的证据，恢复承诺才有了依据。",
-        failureText: "验证拖慢了节奏，但避免了把乐观假设写进时间表。",
+        failureText: "先确认恢复证据的方向没错，但缺少能核实备份可恢复性的 IT/OT 视角，恢复承诺在证据落实前就被写进了时间表。",
       },
       { id: "C", text: "等技术团队完全验证后再做任何决定", effect: { security: 0, production: -2, reputation: 0 } },
       { id: "D", text: "先对外承诺 2 小时恢复，给团队压力", effect: { security: 0, production: 0, reputation: -4 } },
@@ -380,7 +380,7 @@ const events = [
         success: { security: 0, production: 0, reputation: 1 },
         failure: { security: 0, production: 0, reputation: 0 },
         successText: "统一通告发布后，厂内口径收拢，谣言扩散明显减弱。",
-        failureText: "通告方向对，但执行要求不够具体，现场仍有零散误读。",
+        failureText: "发布统一说明的方向对，但缺少能拟定统一口径、稳住现场秩序的沟通视角，谣言在正式通告收口前继续扩散。",
       },
       { id: "C", text: "只通知中层，由他们自行向下转达", effect: { security: 0, production: 0, reputation: -2 } },
       { id: "D", text: "先在小范围口头提醒，确认影响后再发正式邮件", effect: { security: 0, production: 0, reputation: -2 } },
@@ -405,7 +405,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "临时高权限设了失效时间和复核人，既支持了排障，也没留下长期后门。",
-        failureText: "审批链跑通了，但执行比预期稍慢，夜班排障窗口被压缩。",
+        failureText: "最小范围临时授权的方向对，但缺少能界定权限边界、失效与回收的 IT/OT 视角，高权限在条件写清前就被开了出去。",
       },
       { id: "B", text: "先给全量权限，问题解决后再说", effect: { security: -4, production: 0, reputation: 0 } },
       { id: "C", text: "坚持等白天正式流程，不做任何例外", effect: { security: 0, production: -4, reputation: 0 } },
@@ -432,7 +432,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: 0, reputation: 0 },
         successText: "转岗和离职权限被及时收回并留痕，内部已知敞口随之收窄。",
-        failureText: "方向正确，但跨部门确认耗掉了一些时间，短时推进略显吃力。",
+        failureText: "立即收回冗余权限的方向对，但缺少能把岗位变化落到账号权限上的复核视角，转岗遗留的管理权限在收口前继续挂着。",
       },
       { id: "C", text: "只停用离职人员权限，转岗员工保留原权限", effect: { security: -2, production: 0, reputation: 0 } },
       { id: "D", text: "让各部门负责人邮件回复即可，不做系统核对", effect: { security: -2, production: 0, reputation: -2 } },
@@ -459,7 +459,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "账号单人领取、操作留痕、事后改密，应急效率和可追溯性都保住了。",
-        failureText: "流程稍显笨重，但没让高权限在多人之间无序流转。",
+        failureText: "单人领取、操作留痕的方向对，但缺少能规范应急账号使用的 IT/OT 视角，共享账号在规则落地前已被多人无序借用。",
       },
       { id: "D", text: "暂时封存该账号，任何人都不能碰", effect: { security: 0, production: -4, reputation: 0 } },
     ],
@@ -484,7 +484,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "端口按源目地址和时段受限开放，例外被压缩成受控窗口。",
-        failureText: "审批与实施花了点时间，但没把试运行建立在长期放通上。",
+        failureText: "限定范围再补评估的方向对，但缺少能评估网络例外与回退方案的 IT/OT 视角，跨网段端口在评估补齐前就被放通。",
       },
       { id: "C", text: "完全拒绝任何例外，项目延期自行承担", effect: { security: 0, production: -2, reputation: -2 } },
       { id: "D", text: "让项目组自行和网络工程师私下处理", effect: { security: -4, production: 0, reputation: -2 } },
@@ -509,7 +509,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "双人审批到位，远程维护限时并留存会话审计，风险和业务两头都兼顾了。",
-        failureText: "周末窗口被压缩了一些，但访问控制和责任界面仍然清晰。",
+        failureText: "坚持双人审批的方向对，但缺少能同时权衡业务必要性与技术风险的接入管理视角，本该双人把关的远程访问在流程缺口处被单边放过。",
       },
       { id: "B", text: "由生产经理单独批准，避免耽误维护", effect: { security: -4, production: 0, reputation: 0 } },
       { id: "C", text: "供应商先连上，审批邮件后补", effect: { security: -4, production: 0, reputation: -2 } },
@@ -537,7 +537,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "U 盘经隔离设备检查后由专机导入，移动介质的风险被挡在控制区外。",
-        failureText: "调试被稍稍拖慢，但没让未知介质直接碰到控制系统。",
+        failureText: "走例外审批、专机导入的方向对，但缺少懂介质扫描隔离与专机转运的工程视角，U 盘在隔离检查落实前一直被逼近控制区电脑。",
       },
       { id: "D", text: "把文件先转到个人电脑，再发给现场工程师", effect: { security: -4, production: 0, reputation: -2 } },
     ],
@@ -562,7 +562,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "PLC 变更走了同侪复核和回退确认，控制逻辑没有绕过评审直接上线。",
-        failureText: "评审拖慢了上线节奏，但避免了把未知逻辑直接推入生产。",
+        failureText: "要求同侪复核、回退确认的方向对，但缺少能承担控制逻辑评审的工程视角，改动的 PLC 逻辑在复核到位前险些直接推入生产。",
       },
       { id: "C", text: "让原开发工程师自行签字，不再找第二人确认", effect: { security: -2, production: 0, reputation: -2 } },
       { id: "D", text: "完全禁止变更，今天设备停着等厂商", effect: { security: 0, production: -4, reputation: 0 } },
@@ -588,7 +588,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "维护范围收窄、优先修补高危漏洞，补丁和交付没有被迫二选一。",
-        failureText: "维护窗口执行得有些紧张，但关键暴露面得到了处理。",
+        failureText: "缩小范围优先修高危的方向对，但缺少能显性权衡安全维护与交付的经营视角，高危补丁在折中方案敲定前一再被月末冲量挤到后面。",
       },
       { id: "C", text: "取消维护，由技术团队加强观察即可", effect: { security: -2, production: 0, reputation: 0 } },
       { id: "D", text: "全厂停机补丁，一次把所有问题处理完", effect: { security: 1, production: -6, reputation: 0 } },
@@ -613,7 +613,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "账号按剩余工作短期延期并重新审批，没有变成默认长期续租。",
-        failureText: "沟通多花了一些功夫，但账号没有在惯性中失控延长。",
+        failureText: "带期限重新审批的方向对，但缺少能界定延期条件与回收责任的供应商管理视角，到期的临时账号在重新审批落地前继续沿用。",
       },
       { id: "B", text: "一次性顺延 30 天，省得反复审批", effect: { security: -4, production: 0, reputation: 0 } },
       { id: "C", text: "立即停用账号，任何例外都不接受", effect: { security: 0, production: -4, reputation: 0 } },
@@ -640,7 +640,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "遗留高权限进入了验证和分阶段下线的流程，没有继续被搬置。",
-        failureText: "验证过程带来一点运维压力，但避免了沉睡高权继续长期存在。",
+        failureText: "制定验证计划、受控停用的方向对，但缺少能评估影响并分阶段下线的账号治理视角，沉睡的高权限账号在计划成型前继续留在工程站上。",
       },
       { id: "C", text: "立即一次性删除所有相关账号", effect: { security: 1, production: -4, reputation: 0 } },
       { id: "D", text: "只改密码，不处理账号本身", effect: { security: -2, production: 0, reputation: 0 } },
@@ -667,7 +667,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: 0, reputation: 0 },
         successText: "演练带着问题签收，整改时限、责任人和复测都定了，恢复能力才真正提升。",
-        failureText: "整改闭环增加了管理动作，但问题没有被轻轻放过。",
+        failureText: "带问题签收、明确整改的方向对，但缺少能把演练发现拉入闭环的恢复评审视角，超时与备份缺口在整改责任落实前被草草带过。",
       },
       { id: "D", text: "演练结果太差，直接取消后续复盘会", effect: { security: -2, production: 0, reputation: -2 } },
     ],
@@ -692,7 +692,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "保留了专家的技术主导，同时引入独立审批，关键动作有了第二层监督。",
-        failureText: "组织安排上多了一步协调，但职责边界开始变得清晰。",
+        failureText: "引入独立审批或旁站复核的方向对，但缺少能承担第二层复核的评审视角，高风险变更在独立监督补上前仍由一人提需求、审批加执行。",
       },
       { id: "C", text: "今后所有类似工作全部暂停，等扩编后再做", effect: { security: 0, production: -4, reputation: 0 } },
       { id: "D", text: "只要求事后补写审批记录，不改变执行方式", effect: { security: -2, production: 0, reputation: -2 } },
@@ -719,7 +719,7 @@ const events = [
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
         successText: "补齐日志、时间线和操作记录后再下结论，管理判断有了完整证据支撑。",
-        failureText: "补证据花了点时间，但避免了把模糊画面当成事实依据。",
+        failureText: "要求补齐日志与时间线的方向对，但缺少能把关证据质量的评审视角，那张没有时间戳的截图在证据补齐前差点就支撑了经营结论。",
       },
       { id: "D", text: "只要求车间负责人再次口头确认", effect: { security: -2, production: 0, reputation: -2 } },
     ],
@@ -998,6 +998,61 @@ const state = {
 
 // 超时惩罚：讨论超时未决策时，攻击者利用窗口期造成的指标损失
 const TIMEOUT_PENALTY = { security: -6, production: -4, reputation: -4 };
+
+// 补救措施：仅在推荐动作检定失败后可选，按事件检定类型定制。
+// 补救稳定生效（不再二次检定），净收益约 +1，体现“止损仍有代价”。
+const REMEDIATION_OPTIONS = {
+  awareness: [
+    {
+      id: "aw1",
+      text: "补强证据链并组织复盘",
+      delta: { security: 0, production: -1, reputation: 2 },
+      resultText: "事后补齐了证据与时间线，对外口径重新可信，但复盘占用了产线协同资源。",
+    },
+    {
+      id: "aw2",
+      text: "面向全员发布预警通报",
+      delta: { security: 1, production: -1, reputation: 1 },
+      resultText: "扩大预警面收敛了后续暴露，各方口径统一，但临时管控拖慢了现场节奏。",
+    },
+  ],
+  control: [
+    {
+      id: "ct1",
+      text: "紧急隔离并加固入口",
+      delta: { security: 2, production: -1, reputation: 0 },
+      resultText: "停机收紧了关键入口，边界重新收回控制，代价是产出短时受影响。",
+    },
+    {
+      id: "ct2",
+      text: "补办临时授权并留审计",
+      delta: { security: 1, production: -1, reputation: 1 },
+      resultText: "把越权的例外拉回受控流程，责任链清晰起来，但补流程占用了作业时间。",
+    },
+  ],
+  recovery: [
+    {
+      id: "rc1",
+      text: "切换受控降级运行",
+      delta: { security: 0, production: 2, reputation: -1 },
+      resultText: "先用受控降级保住了产出，但对外口径一致性打了折扣。",
+    },
+    {
+      id: "rc2",
+      text: "补做一次恢复演练",
+      delta: { security: 1, production: 1, reputation: -1 },
+      resultText: "补验了恢复能力，安全与产出更有底，但对外承诺被迫暂缓。",
+    },
+  ],
+};
+
+// 通用“接受损失”选项：不补救，直接进入下一回合
+const REMEDIATION_ACCEPT = {
+  id: "accept",
+  text: "接受损失，不做补救",
+  delta: { security: 0, production: 0, reputation: 0 },
+  resultText: "管理层选择接受本回合的失败结果，不再追加补救动作。",
+};
 
 const app = document.getElementById("app");
 const phaseLabel = document.getElementById("phaseLabel");
@@ -1354,10 +1409,52 @@ function renderResult() {
   banner.textContent =
     outcome.type === "success" ? "战报：稳住局面" : outcome.type === "failure" ? "战报：代价上升" : "战报：直接后果";
   document.getElementById("reportSteps").innerHTML = buildReportSteps(event, option, outcome, bonusRoles);
-  document.getElementById("nextStepButton").textContent =
-    state.currentRound >= state.deck.length - 1 || Object.values(state.score).some((value) => value <= 0)
+  document.getElementById("remediationBlock").innerHTML = buildRemediationBlock(state.result);
+  const nextButton = document.getElementById("nextStepButton");
+  const needRemediation = outcome.type === "failure" && !state.result.remediation;
+  nextButton.disabled = needRemediation;
+  nextButton.textContent = needRemediation
+    ? "请先处理补救环节"
+    : state.currentRound >= state.deck.length - 1 || Object.values(state.score).some((value) => value <= 0)
       ? "进入最终复盘"
       : "进入下一事件";
+}
+
+function buildRemediationBlock(result) {
+  if (!result || result.outcome.type !== "failure") return "";
+  const options = [...(REMEDIATION_OPTIONS[result.event.check] || []), REMEDIATION_ACCEPT];
+
+  if (result.remediation) {
+    const chosen = result.remediation;
+    const deltaText = scoreMeta
+      .filter(({ key }) => chosen.delta[key] !== 0)
+      .map(({ key, label }) => `${label} ${chosen.delta[key] > 0 ? "+" : ""}${chosen.delta[key]}`)
+      .join(" / ") || "无指标变化";
+    return `
+      <div class="remediation-head"><strong>补救处置</strong><span class="remediation-done">已执行</span></div>
+      <div class="remediation-result">
+        <p><strong>${chosen.text}</strong></p>
+        <p>${chosen.resultText}</p>
+        <div class="remediation-delta">${deltaText}</div>
+      </div>
+    `;
+  }
+
+  const cards = options
+    .map((item) => {
+      const isAccept = item.id === "accept";
+      return `
+        <button class="remediation-card ${isAccept ? "accept" : ""}" data-action="choose-remediation" data-remediation-id="${item.id}">
+          <span class="remediation-card-title">${item.text}</span>
+        </button>
+      `;
+    })
+    .join("");
+
+  return `
+    <div class="remediation-head"><strong>补救处置</strong><span class="remediation-tip">检定失败，可选择一次止损（稳定生效，每回合仅一次；效果在执行后揭示）</span></div>
+    <div class="remediation-cards">${cards}</div>
+  `;
 }
 
 // 明确检定机制：基础能力 + 角色加成 是否达到门槛（确定性，无随机）
@@ -1635,8 +1732,21 @@ function chooseOption(optionId) {
     threshold: event.difficulty,
     bonus,
     bonusRoles,
+    remediation: null,
   };
   state.screen = "result";
+  render();
+}
+
+function chooseRemediation(remediationId) {
+  if (!state.result || state.result.outcome.type !== "failure" || state.result.remediation) return;
+  const pool = [...(REMEDIATION_OPTIONS[state.result.event.check] || []), REMEDIATION_ACCEPT];
+  const choice = pool.find((item) => item.id === remediationId);
+  if (!choice) return;
+  applyDelta(choice.delta);
+  state.result.remediation = choice;
+  const last = state.log[state.log.length - 1];
+  if (last) last.outcome = `${last.outcome}（补救：${choice.text}）`;
   render();
 }
 
@@ -1903,6 +2013,7 @@ document.addEventListener("click", (event) => {
   if (action === "auto-pick-roles") autoPickRoles();
   if (action === "start-game") startGame();
   if (action === "choose-option") chooseOption(optionId);
+  if (action === "choose-remediation") chooseRemediation(target.dataset.remediationId);
   if (action === "next-step") nextStep();
   if (action === "restart") restart();
   if (action === "toggle-timer") toggleTimer();
