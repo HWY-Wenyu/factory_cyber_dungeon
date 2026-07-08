@@ -82,7 +82,7 @@ const events = [
     scenario:
       "凌晨 2:15，SOC 值班人员报告：工厂办公网出现异常登录行为，来源涉及一名财务主管账号。10 分钟后，MES 登录日志中也出现该账号的访问记录。夜班产线暂时正常，但 IT 团队怀疑攻击者正在横向移动。",
     check: "awareness",
-    difficulty: 12,
+    difficulty: 5,
     tags: ["account", "network", "escalation"],
     review: "管理层首要任务不是亲自判断技术细节，而是及时确认事件级别、授权联动并明确责任链。",
     options: [
@@ -92,8 +92,8 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们在攻击深入之前封住了几条关键路径，损失被控制在前期侦察阶段。",
-        failureText: "方向正确，但协同稍慢，夜班不得不在受限模式下维持运转。",
+        successText: "处置及时，几条关键入口被封堵，攻击被挡在侦察阶段，没有横向扩散。",
+        failureText: "方向对，但联动慢了半拍，夜班只能在受限模式下维持运转。",
       },
       { id: "B", text: "先让 IT 留意日志，避免夜班误停", effect: { security: -4, production: 0, reputation: 0 } },
       { id: "C", text: "仅通知生产值班经理，等更多迹象出现", effect: { security: -2, production: -2, reputation: 0 } },
@@ -108,7 +108,7 @@ const events = [
     scenario:
       "一家关键设备供应商来电称，需立即远程登录产线控制系统修复参数异常，否则明早可能影响良率。IT 团队发现该供应商的远程访问通道长期启用，且本周尚未完成访问复核。",
     check: "control",
-    difficulty: 13,
+    difficulty: 5,
     tags: ["remote", "vendor"],
     review: "供应商风险不是能不能合作，而是能不能在可审计、可授权、可回收的条件下合作。",
     options: [
@@ -120,8 +120,8 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们没有把城门长期敞开，而是选择在守卫注视下短时放行。",
-        failureText: "流程是对的，但审批和执行稍慢，修复窗口被压缩。",
+        successText: "远程通道按时限、范围和审计受控开放，修完即回收，没有留下长期敞口。",
+        failureText: "流程对，但审批和执行稍慢，修复窗口被压缩。",
       },
       { id: "D", text: "口头同意，由生产负责人盯着处理", effect: { security: -4, production: 0, reputation: 0 } },
     ],
@@ -134,7 +134,7 @@ const events = [
     scenario:
       "早班开始前，计划部门反馈部分共享文件无法打开，文件名后缀异常。半小时后，仓储打印、排产报表和部分办公终端相继异常。有人建议先不要公开，避免引发恐慌。",
     check: "control",
-    difficulty: 12,
+    difficulty: 5,
     tags: ["network", "escalation", "communication"],
     review: "管理层常见误区是把避免恐慌放在避免扩散之前。勒索事件里，拖延升级通常比短暂停摆更贵。",
     options: [
@@ -147,8 +147,8 @@ const events = [
         best: true,
         success: { security: 1, production: -2, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们切断了黑雾蔓延的风道，用局部停摆换来了可控边界。",
-        failureText: "隔离动作及时，但现场切换仍然带来了短时效率损失。",
+        successText: "应急响应及时启动，受影响网段被隔离，用局部停摆换来了可控边界。",
+        failureText: "隔离动作及时，但现场切换仍带来了短时效率损失。",
       },
     ],
   },
@@ -160,7 +160,7 @@ const events = [
     scenario:
       "OT 团队判断，攻击者可能已接触到工程站，但尚无证据表明 PLC 被改写。是否临时停掉一条关键产线进行隔离检查，成为眼前最艰难的选择。客户订单当天必须发出。",
     check: "recovery",
-    difficulty: 14,
+    difficulty: 4,
     tags: ["shutdown", "engineering"],
     review: "管理层必须定义何时可以停、谁来拍板、客户如何沟通。把停线决定完全下沉给技术团队，是经营责任的缺位。",
     options: [
@@ -172,8 +172,8 @@ const events = [
         best: true,
         success: { security: 1, production: -2, reputation: 1 },
         failure: { security: 0, production: -4, reputation: 0 },
-        successText: "你们没有盲目停全厂，而是在关键节点上用短停换来边界确定性。",
-        failureText: "决策是对的，但现场恢复节奏比预期慢，出货压力抬升。",
+        successText: "关键产线短停到位，边界得到确认，交付沟通也提前备好了预案。",
+        failureText: "决策对，但现场恢复节奏比预期慢，出货压力抬升。",
       },
       { id: "D", text: "继续生产，等出现明确异常再处置", effect: { security: -4, production: 0, reputation: 0 } },
     ],
@@ -186,7 +186,7 @@ const events = [
     scenario:
       "一个重点客户发来邮件，表示听说你们工厂系统异常，询问是否影响其订单数据与交付安排。法务建议谨慎回应，生产部门则主张等确认后再说。",
     check: "control",
-    difficulty: 11,
+    difficulty: 5,
     tags: ["communication", "evidence"],
     review: "客户沟通的关键不是一次性说清全部细节，而是在不超范围承诺的前提下维持可信更新。",
     options: [
@@ -197,8 +197,8 @@ const events = [
         best: true,
         success: { security: 0, production: 0, reputation: 2 },
         failure: { security: 0, production: 0, reputation: 1 },
-        successText: "你们守住了可信度，没有把信息黑箱变成客户自行想象的风险。",
-        failureText: "沟通方向正确，但内部更新时间表还不够稳定。",
+        successText: "对外口径稳住了客户预期，也守住了后续沟通的可信度。",
+        failureText: "沟通方向对，但内部更新时间表还不够稳定。",
       },
       { id: "C", text: "暂不回复，等范围完全查清", effect: { security: 0, production: 0, reputation: -2 } },
       { id: "D", text: "先否认异常，避免客户扩大解读", effect: { security: 0, production: 0, reputation: -4 } },
@@ -212,7 +212,7 @@ const events = [
     scenario:
       "集团高层要求你在 30 分钟内说明三件事：发生了什么、现在风险多大、你准备怎么恢复。现场信息仍不完整，各部门口径也不完全一致。",
     check: "awareness",
-    difficulty: 11,
+    difficulty: 5,
     tags: ["communication", "escalation", "evidence"],
     review: "危机汇报最忌讳过度乐观和多头发声。管理层需要建立统一战情口径。",
     options: [
@@ -225,8 +225,8 @@ const events = [
         best: true,
         success: { security: 0, production: 0, reputation: 2 },
         failure: { security: 0, production: 0, reputation: 1 },
-        successText: "你们给出了足够清晰的战情画面，让上层监督而不越位指挥。",
-        failureText: "结构是对的，但部分关键数字仍然缺口较大。",
+        successText: "事实、假设和行动讲清楚了，上层能有效监督而不越位指挥。",
+        failureText: "结构对，但部分关键数字仍有较大缺口。",
       },
     ],
   },
@@ -238,7 +238,7 @@ const events = [
     scenario:
       "凌晨发生网络异常后，一条包装线短时切换过手动模式。早班时，质量系统里有一段批次记录缺失，但现场人员表示设备运行看起来正常。仓库催促尽快放行，否则当天出货会延迟。",
     check: "control",
-    difficulty: 12,
+    difficulty: 5,
     tags: ["quality", "manual"],
     review: "管理层要守住的是可追溯、可证明、可追责，而不是只看产品是否勉强产出来。",
     options: [
@@ -250,8 +250,8 @@ const events = [
         best: true,
         success: { security: 0, production: -2, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们把问题留在厂内，而不是让不确定性跟着产品一起离厂。",
-        failureText: "处置正确，但放行前核验所需时间比预期更长。",
+        successText: "问题批次被及时隔离核对，不确定性被挡在厂内，没有流到客户端。",
+        failureText: "处置对，但放行前核验耗时比预期更长。",
       },
       { id: "D", text: "由班组长签字确认后放行", effect: { security: 0, production: 0, reputation: -2 } },
     ],
@@ -264,7 +264,7 @@ const events = [
     scenario:
       "夜里 11:40，一名熟悉的外包工程师到门岗，说要紧急处理白天没修完的设备故障。他出示了旧工牌照片，也能说出设备编号，但系统里查不到当晚预约记录。产线主管催促尽快放人。",
     check: "control",
-    difficulty: 11,
+    difficulty: 5,
     tags: ["physical", "vendor"],
     review: "控制区入口就是边界。物理放行和网络放行，本质上都是授权问题。",
     options: [
@@ -274,8 +274,8 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 0 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们守住了入口，把例外留在流程里，而不是把流程留在事后补单里。",
-        failureText: "复核耗费了时间，但至少没有把未知人员直接放进控制区。",
+        successText: "身份和工单复核到位，人员在登记受控下进入，入口没有失守。",
+        failureText: "复核耗了些时间，但没让未核实人员直接进入控制区。",
       },
       { id: "B", text: "先放进去，到了设备旁再补手续", effect: { security: -4, production: 0, reputation: 0 } },
       { id: "C", text: "让门岗拍照留底，其他先不管", effect: { security: -2, production: 0, reputation: 0 } },
@@ -290,7 +290,7 @@ const events = [
     scenario:
       "自动化团队发现某台工程站在夜间有登录记录，并且一组关键设备参数与上周基线不一致。现场暂未出现明显报警，但良率有轻微波动。生产希望先跑完这一班再说。",
     check: "control",
-    difficulty: 13,
+    difficulty: 5,
     tags: ["engineering", "network"],
     review: "参数异常不是设备细节，而是经营风险。真正要管理的是基线、授权和证据。",
     options: [
@@ -302,8 +302,8 @@ const events = [
         best: true,
         success: { security: 1, production: -2, reputation: 0 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们先把参数基线守住，再讨论恢复速度，顺序是对的。",
-        failureText: "核验动作让产线节奏受了影响，但避免了不透明的继续漂移。",
+        successText: "先守住参数基线、再谈恢复速度，处置顺序稳妥。",
+        failureText: "核验影响了产线节奏，但避免了参数不透明地继续漂移。",
       },
       { id: "D", text: "让现场把参数调回经验值再继续生产", effect: { security: -4, production: 0, reputation: -2 } },
     ],
@@ -316,7 +316,7 @@ const events = [
     scenario:
       "MES 与排产系统响应异常，但产线设备本身还能运行。生产团队提出临时切到手工记录和人工下发工单，先保住产出。IT/OT 团队担心这样会让后续追溯和恢复更复杂。",
     check: "recovery",
-    difficulty: 12,
+    difficulty: 4,
     tags: ["manual", "shutdown"],
     review: "降级运行可以是正确答案，但前提是边界清楚、记录补偿到位、授权明确。",
     options: [
@@ -328,7 +328,7 @@ const events = [
         best: true,
         success: { security: 0, production: 1, reputation: 0 },
         failure: { security: 0, production: 0, reputation: 0 },
-        successText: "你们守住了降级边界，把保产建立在可追溯而不是碰运气上。",
+        successText: "降级运行控制在有预案、有追溯的范围内，保住产出的同时守住了边界。",
         failureText: "手工模式启动了，但现场补偿记录执行得不够整齐。",
       },
       { id: "D", text: "各车间自行决定是否切换", effect: { security: 0, production: 0, reputation: -2 } },
@@ -342,7 +342,7 @@ const events = [
     scenario:
       "IT 团队表示核心业务系统有备份，但恢复演练记录是 8 个月前的。与此同时，产线调度急需知道，如果现在扩大隔离，系统多久能恢复。管理层必须立即决定是否接受恢复时间风险。",
     check: "control",
-    difficulty: 12,
+    difficulty: 5,
     tags: ["backup", "escalation"],
     review: "真正该管理的不是有没有备份，而是有没有证据证明恢复真的可行。",
     options: [
@@ -353,8 +353,8 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们让恢复承诺建立在证据上，而不是建立在希望上。",
-        failureText: "验证动作拖慢了节奏，但避免了把乐观假设写进时间表。",
+        successText: "先核实了最近一次成功恢复的证据，恢复承诺才有了依据。",
+        failureText: "验证拖慢了节奏，但避免了把乐观假设写进时间表。",
       },
       { id: "C", text: "等技术团队完全验证后再做任何决定", effect: { security: 0, production: -2, reputation: 0 } },
       { id: "D", text: "先对外承诺 2 小时恢复，给团队压力", effect: { security: 0, production: 0, reputation: -4 } },
@@ -368,7 +368,7 @@ const events = [
     scenario:
       "事件处置进入第 2 小时，厂内已经出现各种猜测：有人说是黑客入侵，有人说只是普通系统故障，还有人开始在工作群转发未经证实的截图。行政部门询问是否立刻发全厂通知。",
     check: "control",
-    difficulty: 10,
+    difficulty: 5,
     tags: ["communication", "physical"],
     review: "内部沟通要先稳住秩序、明确动作，再逐步扩展信息，不要把信息真空留给流言。",
     options: [
@@ -379,8 +379,8 @@ const events = [
         best: true,
         success: { security: 0, production: 0, reputation: 1 },
         failure: { security: 0, production: 0, reputation: 0 },
-        successText: "你们先把厂内节奏收回到统一口径之下，谣言扩散明显减弱。",
-        failureText: "通告方向正确，但执行要求还不够具体，现场仍有零散误读。",
+        successText: "统一通告发布后，厂内口径收拢，谣言扩散明显减弱。",
+        failureText: "通告方向对，但执行要求不够具体，现场仍有零散误读。",
       },
       { id: "C", text: "只通知中层，由他们自行向下转达", effect: { security: 0, production: 0, reputation: -2 } },
       { id: "D", text: "先在小范围口头提醒，确认影响后再发正式邮件", effect: { security: 0, production: 0, reputation: -2 } },
@@ -394,7 +394,7 @@ const events = [
     scenario:
       "夜班维修团队提出，需要立即为一名自动化工程师开通域管理员和工程站本地管理员权限，否则无法检查一台频繁掉线的关键 HMI。当前没有书面审批单，只有电话确认。",
     check: "control",
-    difficulty: 12,
+    difficulty: 5,
     tags: ["account", "approval", "engineering"],
     review: "管理层应要求紧急权限具备明确范围、时限、审批人与回收动作。把临时授权当作口头默契，往往会变成长期风险。",
     options: [
@@ -404,7 +404,7 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们把紧急授权关进了时间盒子里，既支持排障，也没有留下长期敞开的后门。",
+        successText: "临时高权限设了失效时间和复核人，既支持了排障，也没留下长期后门。",
         failureText: "审批链跑通了，但执行比预期稍慢，夜班排障窗口被压缩。",
       },
       { id: "B", text: "先给全量权限，问题解决后再说", effect: { security: -4, production: 0, reputation: 0 } },
@@ -420,7 +420,7 @@ const events = [
     scenario:
       "季度访问复核开始后，IT/OT 团队发现两名已转岗员工仍保留 MES 管理权限，其中一人还在工厂内部其他岗位继续工作。HR 认为下周统一处理也可以，不必现在打断业务。",
     check: "awareness",
-    difficulty: 11,
+    difficulty: 5,
     tags: ["account", "review", "evidence"],
     review: "访问复核的价值，在于把组织变化真正反映到账户权限上。拖延看似温和，实则是在容忍已知风险继续存在。",
     options: [
@@ -431,7 +431,7 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: 0, reputation: 0 },
-        successText: "你们把组织变更真正落实到了权限边界上，减少了内部已知敞口。",
+        successText: "转岗和离职权限被及时收回并留痕，内部已知敞口随之收窄。",
         failureText: "方向正确，但跨部门确认耗掉了一些时间，短时推进略显吃力。",
       },
       { id: "C", text: "只停用离职人员权限，转岗员工保留原权限", effect: { security: -2, production: 0, reputation: 0 } },
@@ -446,7 +446,7 @@ const events = [
     scenario:
       "一台历史老旧的 SCADA 服务器只有一个共用管理员账号，密码保存在值班记录本里。凌晨异常处理中，多名工程师都想直接借用它进入系统，以便尽快排查。",
     check: "control",
-    difficulty: 13,
+    difficulty: 5,
     tags: ["account", "review", "remote"],
     review: "应急账号如果继续被多人共用，就很难再讲清谁在何时做了什么。管理层需要要求单人领取、操作留痕和事后复核。",
     options: [
@@ -458,8 +458,8 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们保住了应急效率，也保住了责任链和后续追踪能力。",
-        failureText: "流程稍显笨重，但至少没有让高权限在多人之间无序流转。",
+        successText: "账号单人领取、操作留痕、事后改密，应急效率和可追溯性都保住了。",
+        failureText: "流程稍显笨重，但没让高权限在多人之间无序流转。",
       },
       { id: "D", text: "暂时封存该账号，任何人都不能碰", effect: { security: 0, production: -4, reputation: 0 } },
     ],
@@ -472,7 +472,7 @@ const events = [
     scenario:
       "一个新上线的设备数据采集项目遇到通信阻塞，项目经理要求立即放开一组跨网段端口，否则当周的试运行汇报会失败。当前变更单未完成安全评估，只标注了“先通再补”。",
     check: "control",
-    difficulty: 12,
+    difficulty: 5,
     tags: ["network", "approval", "change"],
     review: "管理层不是要卡住业务，而是要求例外建立在边界、期限和回退方案之上。没有评估的放行，很容易成为长期漏洞。",
     options: [
@@ -483,8 +483,8 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们把例外压缩成受控窗口，而不是把边界一次性全部撤掉。",
-        failureText: "审批与实施花了点时间，但没有把试运行建立在长期放通上。",
+        successText: "端口按源目地址和时段受限开放，例外被压缩成受控窗口。",
+        failureText: "审批与实施花了点时间，但没把试运行建立在长期放通上。",
       },
       { id: "C", text: "完全拒绝任何例外，项目延期自行承担", effect: { security: 0, production: -2, reputation: -2 } },
       { id: "D", text: "让项目组自行和网络工程师私下处理", effect: { security: -4, production: 0, reputation: -2 } },
@@ -498,7 +498,7 @@ const events = [
     scenario:
       "供应商请求在周末维护窗口远程进入一台包装线工程站，进行控制逻辑检查。当前制度要求业务负责人和 IT/OT 双人审批，但生产经理认为这只是例行维护，建议省去一层确认。",
     check: "awareness",
-    difficulty: 11,
+    difficulty: 5,
     tags: ["remote", "approval", "vendor"],
     review: "双人审批的意义在于把业务必要性和技术风险同时纳入判断。为了省时间绕过其中一侧，往往会让责任链断开。",
     options: [
@@ -508,7 +508,7 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们让远程维护在两道视角下被看见，风险和业务都没有被单边忽略。",
+        successText: "双人审批到位，远程维护限时并留存会话审计，风险和业务两头都兼顾了。",
         failureText: "周末窗口被压缩了一些，但访问控制和责任界面仍然清晰。",
       },
       { id: "B", text: "由生产经理单独批准，避免耽误维护", effect: { security: -4, production: 0, reputation: 0 } },
@@ -524,7 +524,7 @@ const events = [
     scenario:
       "设备厂家带来一个 U 盘，声称其中包含一份必须当天导入的驱动补丁，否则新的视觉检测设备无法完成调试。现场禁止移动介质接入控制区电脑，但项目进度已经落后。",
     check: "control",
-    difficulty: 12,
+    difficulty: 5,
     tags: ["physical", "approval", "engineering"],
     review: "对移动介质的管理重点不是简单说能不能插，而是是否经过扫描、隔离、专机转运和审批留痕。",
     options: [
@@ -536,8 +536,8 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们没有把 U 盘当成普通工具，而是把它当成需要过关的入口。",
-        failureText: "调试被稍稍拖慢，但至少没有让未知介质直接碰到控制系统。",
+        successText: "U 盘经隔离设备检查后由专机导入，移动介质的风险被挡在控制区外。",
+        failureText: "调试被稍稍拖慢，但没让未知介质直接碰到控制系统。",
       },
       { id: "D", text: "把文件先转到个人电脑，再发给现场工程师", effect: { security: -4, production: 0, reputation: -2 } },
     ],
@@ -550,7 +550,7 @@ const events = [
     scenario:
       "自动化负责人提出，为了绕开当前故障点，可以临时修改一段 PLC 逻辑，让关键设备跳过一个联锁校验。这样能保住今日产出，但目前还没有完成同侪评审和回退方案确认。",
     check: "control",
-    difficulty: 14,
+    difficulty: 4,
     tags: ["engineering", "review", "change"],
     review: "控制逻辑的临时改动如果缺少复核和回退，就可能把‘应急修复’变成新的长期隐患。管理层需要守住评审门槛。",
     options: [
@@ -561,7 +561,7 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们把控制逻辑从个人经验拉回到了组织可复核的轨道上。",
+        successText: "PLC 变更走了同侪复核和回退确认，控制逻辑没有绕过评审直接上线。",
         failureText: "评审拖慢了上线节奏，但避免了把未知逻辑直接推入生产。",
       },
       { id: "C", text: "让原开发工程师自行签字，不再找第二人确认", effect: { security: -2, production: 0, reputation: -2 } },
@@ -576,7 +576,7 @@ const events = [
     scenario:
       "OT 团队建议在今晚维护窗口对边界防护设备打补丁，以修复刚披露的高危漏洞。但今晚也是月末冲量时段，生产部门希望把窗口整体后移一周，以免影响出货。",
     check: "recovery",
-    difficulty: 13,
+    difficulty: 3,
     tags: ["change", "approval", "shutdown"],
     review: "管理层要做的是显性化风险权衡，而不是默认把安全维护让位给交付。若决定延期，也必须明确替代控制。",
     options: [
@@ -587,8 +587,8 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们没有让补丁和交付二选一，而是通过窗口压缩守住了高风险边界。",
-        failureText: "维护窗口执行得有些紧张，但至少关键暴露面得到了处理。",
+        successText: "维护范围收窄、优先修补高危漏洞，补丁和交付没有被迫二选一。",
+        failureText: "维护窗口执行得有些紧张，但关键暴露面得到了处理。",
       },
       { id: "C", text: "取消维护，由技术团队加强观察即可", effect: { security: -2, production: 0, reputation: 0 } },
       { id: "D", text: "全厂停机补丁，一次把所有问题处理完", effect: { security: 1, production: -6, reputation: 0 } },
@@ -602,7 +602,7 @@ const events = [
     scenario:
       "一名驻厂供应商的远程维护账号将在今晚 24:00 到期，但其负责的设备仍有未完成问题。供应商请求直接顺延 30 天，理由是下周还可能反复调试，不想频繁走审批。",
     check: "awareness",
-    difficulty: 11,
+    difficulty: 4,
     tags: ["vendor", "account", "approval"],
     review: "账号延期不应因为沟通成本而变成长期默认。管理层要问的是：是否真有持续必要、期限多长、谁来复核和回收。",
     options: [
@@ -612,7 +612,7 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们把延期从默认续租变成了带期限、带条件的再次授权。",
+        successText: "账号按剩余工作短期延期并重新审批，没有变成默认长期续租。",
         failureText: "沟通多花了一些功夫，但账号没有在惯性中失控延长。",
       },
       { id: "B", text: "一次性顺延 30 天，省得反复审批", effect: { security: -4, production: 0, reputation: 0 } },
@@ -628,7 +628,7 @@ const events = [
     scenario:
       "内审抽查时发现，一个属于早年项目实施阶段的本地管理员账号 9 个月未使用，却仍存在于多台工程站上。没有人能立刻确认停用它是否会影响某些老脚本和定时任务。",
     check: "awareness",
-    difficulty: 12,
+    difficulty: 4,
     tags: ["account", "review", "engineering"],
     review: "历史遗留高权限账号是工厂环境里的典型灰区。管理层需要推动风险验证、影响确认和分阶段下线，而不是无限期保留。",
     options: [
@@ -639,8 +639,8 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们没有被历史惯性绑住，而是把遗留权限拉回了可验证、可下线的流程中。",
-        failureText: "验证过程带来一点运维压力，但避免了让沉睡高权继续长期存在。",
+        successText: "遗留高权限进入了验证和分阶段下线的流程，没有继续被搬置。",
+        failureText: "验证过程带来一点运维压力，但避免了沉睡高权继续长期存在。",
       },
       { id: "C", text: "立即一次性删除所有相关账号", effect: { security: 1, production: -4, reputation: 0 } },
       { id: "D", text: "只改密码，不处理账号本身", effect: { security: -2, production: 0, reputation: 0 } },
@@ -654,7 +654,7 @@ const events = [
     scenario:
       "一次针对 MES 的恢复演练刚结束，结果显示数据库恢复时间超出目标 40 分钟，且存在一份关键配置未被纳入备份。业务部门希望先把演练报告签掉，避免影响本季度考核评价。",
     check: "control",
-    difficulty: 12,
+    difficulty: 5,
     tags: ["backup", "review", "evidence"],
     review: "管理层 review 的价值，不在于让报告看起来完整，而在于把发现的问题真正拉入改进闭环。草率签字只是在延迟下一次事故的代价。",
     options: [
@@ -666,8 +666,8 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: 0, reputation: 0 },
-        successText: "你们让演练真正服务于恢复能力，而不是服务于一份好看的签字页。",
-        failureText: "整改闭环增加了管理动作，但至少问题没有被轻轻放过。",
+        successText: "演练带着问题签收，整改时限、责任人和复测都定了，恢复能力才真正提升。",
+        failureText: "整改闭环增加了管理动作，但问题没有被轻轻放过。",
       },
       { id: "D", text: "演练结果太差，直接取消后续复盘会", effect: { security: -2, production: 0, reputation: -2 } },
     ],
@@ -680,7 +680,7 @@ const events = [
     scenario:
       "一名资深自动化经理同时负责提出变更需求、审批该变更，并亲自上线实施。团队解释说人手紧张，只有他最熟悉这套设备，拆分职责只会降低效率。",
     check: "awareness",
-    difficulty: 11,
+    difficulty: 4,
     tags: ["review", "approval", "engineering"],
     review: "职责分离并不是为流程而流程，而是防止高风险动作在没有第二视角的情况下被直接推进。管理层需要在效率与独立复核之间守住底线。",
     options: [
@@ -691,7 +691,7 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们没有否定专家价值，但也没有让关键动作失去第二层监督。",
+        successText: "保留了专家的技术主导，同时引入独立审批，关键动作有了第二层监督。",
         failureText: "组织安排上多了一步协调，但职责边界开始变得清晰。",
       },
       { id: "C", text: "今后所有类似工作全部暂停，等扩编后再做", effect: { security: 0, production: -4, reputation: 0 } },
@@ -706,7 +706,7 @@ const events = [
     scenario:
       "管理例会上，某车间提交了一张 HMI 截图，表示昨晚的异常只是设备波动，不涉及网络或权限问题。但 IT/OT 团队指出，这张截图没有时间戳，也无法证明截图对应的就是异常发生时段。",
     check: "control",
-    difficulty: 11,
+    difficulty: 5,
     tags: ["review", "evidence", "communication"],
     review: "管理 review 不能停留在‘看起来没事’。如果证据不能说明时间、来源和上下文，就不应支撑经营判断。",
     options: [
@@ -718,7 +718,7 @@ const events = [
         best: true,
         success: { security: 1, production: 0, reputation: 1 },
         failure: { security: 0, production: -2, reputation: 0 },
-        successText: "你们没有让单张截图替代完整证据，管理判断因此更稳健。",
+        successText: "补齐日志、时间线和操作记录后再下结论，管理判断有了完整证据支撑。",
         failureText: "补证据花了点时间，但避免了把模糊画面当成事实依据。",
       },
       { id: "D", text: "只要求车间负责人再次口头确认", effect: { security: -2, production: 0, reputation: -2 } },
@@ -997,7 +997,7 @@ const state = {
 };
 
 // 超时惩罚：讨论超时未决策时，攻击者利用窗口期造成的指标损失
-const TIMEOUT_PENALTY = { security: -4, production: -2, reputation: -2 };
+const TIMEOUT_PENALTY = { security: -6, production: -4, reputation: -4 };
 
 const app = document.getElementById("app");
 const phaseLabel = document.getElementById("phaseLabel");
@@ -1300,7 +1300,7 @@ function renderEvent() {
     .join("");
   document.getElementById("eventScenario").textContent = event.scenario;
   document.getElementById("eventHint").textContent = event.hint;
-  document.getElementById("checkBadge").textContent = `${baseChecks[event.check].label}检定 · 难度 ${event.difficulty}`;
+  document.getElementById("checkBadge").textContent = `${baseChecks[event.check].label}检定 · 门槛 ${event.difficulty}`;
   document.getElementById("scoreStack").innerHTML = buildScoreRows(state.score);
   document.getElementById("selectedRolesMini").innerHTML = state.selectedRoles
     .map((roleId) => {
@@ -1330,7 +1330,7 @@ function renderEvent() {
 }
 
 function renderResult() {
-  const { event, option, outcome, roll, total, threshold, bonus, bonusRoles } = state.result;
+  const { event, option, outcome, total, threshold, bonus, bonusRoles } = state.result;
   const passed = outcome.type === "success";
   const banner = document.getElementById("battleBanner");
   const judgement = calculateRoundJudgement(option);
@@ -1340,9 +1340,10 @@ function renderResult() {
     : outcome.type === "failure"
       ? "检定失败"
       : "直接结算";
-  document.getElementById("diceFace").textContent = roll ? roll : "直判";
-  document.getElementById("resultFormula").textContent = roll
-    ? `${baseChecks[event.check].label} ${baseChecks[event.check].value} + 角色加成 ${bonus} + d20(${roll}) = ${total}，难度 ${threshold}（${total >= threshold ? "达标" : `差 ${threshold - total} 点`}）`
+  const triggered = outcome.type !== "direct";
+  document.getElementById("diceFace").textContent = triggered ? (passed ? "达标" : "未达") : "直判";
+  document.getElementById("resultFormula").textContent = triggered
+    ? `${baseChecks[event.check].label} ${baseChecks[event.check].value} + 角色加成 ${bonus} = ${total}，门槛 ${threshold}（${total >= threshold ? "达标" : `差 ${threshold - total} 点`}）`
     : "该选项未触发检定，系统直接按后果结算。";
   document.getElementById("resultNarration").textContent = outcome.text;
   document.getElementById("checkMechanism").innerHTML = buildCheckMechanism(state.result);
@@ -1359,12 +1360,12 @@ function renderResult() {
       : "进入下一事件";
 }
 
-// 明确检定机制：基础能力 + 角色加成 + d20 是否达到难度
-function buildCheckMechanism({ event, roll, total, threshold, bonus, outcome }) {
-  if (!roll) {
+// 明确检定机制：基础能力 + 角色加成 是否达到门槛（确定性，无随机）
+function buildCheckMechanism({ event, total, threshold, bonus, outcome }) {
+  if (outcome.type === "direct") {
     return `
       <div class="mechanism-rows">
-        <div class="mechanism-line total"><span>结算方式</span><strong>直接结算（不掷骰）</strong></div>
+        <div class="mechanism-line total"><span>结算方式</span><strong>直接结算（不触发检定）</strong></div>
       </div>
       <p class="mechanism-note">该选项不是推荐处置动作，系统不进行组织检定，直接按其管理后果扣减指标。这类选择通常代表回避、拖延或越权，复盘时应重点讨论为什么会被它吸引。</p>
     `;
@@ -1374,13 +1375,12 @@ function buildCheckMechanism({ event, roll, total, threshold, bonus, outcome }) 
   const gap = threshold - total;
   const rows = `
     <div class="mechanism-line"><span>基础能力（${baseChecks[event.check].label}）</span><strong>${baseChecks[event.check].value}</strong></div>
-    <div class="mechanism-line"><span>角色加成</span><strong>${bonus > 0 ? `+${bonus}` : "0"}</strong></div>
-    <div class="mechanism-line"><span>d20 掷骰</span><strong>${roll}</strong></div>
-    <div class="mechanism-line total"><span>合计 vs 难度 ${threshold}</span><strong class="${passed ? "delta-good" : "delta-bad"}">${total} ${passed ? "≥" : "<"} ${threshold}</strong></div>
+    <div class="mechanism-line"><span>角色加成（专业匹配）</span><strong>${bonus > 0 ? `+${bonus}` : "0"}</strong></div>
+    <div class="mechanism-line total"><span>合计 vs 门槛 ${threshold}</span><strong class="${passed ? "delta-good" : "delta-bad"}">${total} ${passed ? "≥" : "<"} ${threshold}</strong></div>
   `;
   const note = passed
-    ? "合计达到或超过难度，组织顶住了这次事件，按成功后果结算。"
-    : `合计比难度低 <strong>${gap}</strong> 点，检定失败。失败不代表决策方向错误，而是组织在执行速度、协同或前期准备上还不够，攻击窗口没被完全封住，因此按失败后果扣减指标。提升命中率的方式：① 选中与事件标签匹配的角色视角获得加成；② 避免超时（超时会额外扣分并降低容错）；③ 在更早的回合守住指标、积累主动权。`;
+    ? "基础能力加上匹配角色的加成达到了门槛，组织顶住了这次事件，按成功后果结算。"
+    : `合计比门槛低 <strong>${gap}</strong> 点，检定失败。原因是队伍中与本事件专业对口的管理视角不足。提升命中率的方式：组建管理小组时，选择 <strong>加成检定维度与本事件一致（+2）</strong> 或 <strong>标签命中（+1）</strong> 的角色，凑够加成即可达到门槛。`;
   return `<div class="mechanism-rows">${rows}</div><p class="mechanism-note ${passed ? "" : "bad"}">${note}</p>`;
 }
 
@@ -1431,8 +1431,9 @@ function buildDeltaRows(delta, bonusRoles) {
   });
 
   if (bonusRoles.length > 0) {
+    const label = bonusRoles.map((role) => `${role.name}${role.full ? "(+2)" : "(+1)"}`).join("、");
     rows.push(
-      `<div class="delta-row"><span>角色加成来源</span><strong class="delta-good">${bonusRoles.join("、")}</strong></div>`,
+      `<div class="delta-row"><span>角色加成来源</span><strong class="delta-good">${label}</strong></div>`,
     );
   }
 
@@ -1462,10 +1463,11 @@ function buildReportSteps(event, option, outcome, bonusRoles) {
   ];
 
   if (bonusRoles.length > 0) {
+    const label = bonusRoles.map((role) => `${role.name}${role.full ? "(+2)" : "(+1)"}`).join("、");
     steps.splice(2, 0, {
       icon: "awareness",
       title: "角色协同",
-      text: `本回合提供加成的管理视角：${bonusRoles.join("、")}`,
+      text: `本回合提供加成的管理视角：${label}`,
     });
   }
 
@@ -1514,7 +1516,7 @@ function buildReviewJudgement(judgement) {
     deadlineCard = {
       tone: "bad",
       title: "死线状态",
-      text: "已触碰死线。至少一项核心指标跌到 0，本局已进入失守状态。",
+      text: "已触碰死线。至少一项核心指标跌到 0，该维度已被击穿，最终复盘将据此定级。",
     };
   } else if (judgement.nearDeadlineKeys.length > 0) {
     deadlineCard = {
@@ -1599,14 +1601,12 @@ function chooseOption(optionId) {
   const event = state.deck[state.currentRound];
   const option = event.options.find((item) => item.id === optionId);
   const bonusRoles = findMatchingBonusRoles(event);
-  const bonus = bonusRoles.length;
+  const bonus = bonusRoles.reduce((sum, role) => sum + role.weight, 0);
   let outcome;
-  let roll = null;
   let total = null;
 
   if (option.best) {
-    roll = Math.floor(Math.random() * 20) + 1;
-    total = baseChecks[event.check].value + bonus + roll;
+    total = baseChecks[event.check].value + bonus;
     const passed = total >= event.difficulty;
     outcome = {
       type: passed ? "success" : "failure",
@@ -1631,7 +1631,6 @@ function chooseOption(optionId) {
     event,
     option,
     outcome,
-    roll,
     total,
     threshold: event.difficulty,
     bonus,
@@ -1660,8 +1659,14 @@ function applyDelta(delta) {
 function findMatchingBonusRoles(event) {
   return state.selectedRoles
     .map((roleId) => roles.find((role) => role.id === roleId))
-    .filter((role) => role.bonusCheck === event.check && role.bonusTags.some((tag) => event.tags.includes(tag)))
-    .map((role) => role.name);
+    .map((role) => {
+      const checkHit = role.bonusCheck === event.check;
+      const tagHit = role.bonusTags.some((tag) => event.tags.includes(tag));
+      if (checkHit && tagHit) return { name: role.name, weight: 2, full: true };
+      if (checkHit || tagHit) return { name: role.name, weight: 1, full: false };
+      return null;
+    })
+    .filter(Boolean);
 }
 
 function nextStep() {
@@ -1676,39 +1681,83 @@ function nextStep() {
   render();
 }
 
+const scoreTierText = {
+  security: {
+    优: "边界与升级机制稳固，横向移动被有效遏制",
+    良: "防线基本守住，个别环节承压",
+    薄弱: "边界存在缺口，依赖侥幸",
+    危急: "防线多处被突破",
+    击穿: "安全防线被击穿",
+  },
+  production: {
+    优: "降级/停线/恢复预案完备，交付未受实质冲击",
+    良: "运营连续，个别回合靠临场调度",
+    薄弱: "恢复准备不足，交付出现波动",
+    危急: "产线频繁受阻，缺乏预案",
+    击穿: "产能陷入停摆",
+  },
+  reputation: {
+    优: "对内对外口径一致，信任维持良好",
+    良: "沟通总体可控，偶有被动",
+    薄弱: "口径管理松散，出现摇摆",
+    危急: "沟通失序，信任受损",
+    击穿: "声誉严重受损",
+  },
+};
+
+function scoreTier(value) {
+  if (value <= 0) return { rank: "击穿", grade: 0 };
+  if (value <= 3) return { rank: "危急", grade: 1 };
+  if (value <= 6) return { rank: "薄弱", grade: 2 };
+  if (value <= 9) return { rank: "良", grade: 3 };
+  return { rank: "优", grade: 4 };
+}
+
 function calculateFinalOutcome() {
-  const { security, production, reputation } = state.score;
-  const total = security + production + reputation;
-  const lowAreas = scoreMeta.filter(({ key }) => state.score[key] <= 5).map(({ label }) => label);
-  const highAreas = scoreMeta.filter(({ key }) => state.score[key] >= 8).map(({ label }) => label);
-  const tags = [];
+  // 逐项评级：安全 / 产能 / 声誉 各自映射为档位（击穿0 ~ 优4）
+  const tiers = scoreMeta.map(({ key, label }) => {
+    const value = state.score[key];
+    const tier = scoreTier(value);
+    return { key, label, value, ...tier };
+  });
 
-  if (security <= 4) tags.push("边界控制薄弱");
-  if (production <= 4) tags.push("恢复与降级准备不足");
-  if (reputation <= 4) tags.push("沟通与口径管理不足");
-  if (highAreas.length >= 2) tags.push("关键决策协同较稳");
-  if (state.log.some((entry) => entry.title.includes("放行"))) tags.push("质量追溯被纳入管理视角");
-  if (tags.length === 0) tags.push("整体处于可控但仍有波动");
+  // 逐项诊断（本局管理画像）
+  const tags = tiers.map(
+    ({ key, label, value, rank }) => `${label} ${value} · ${rank}——${scoreTierText[key][rank]}`
+  );
 
-  if (security <= 0 || production <= 0 || reputation <= 0) {
-    return {
-      title: "工厂失守",
-      summary: "至少有一项核心指标崩盘。你们需要重新审视事件升级、授权边界和停线逻辑，不能再用局部侥幸支撑整体运行。",
-      tags,
-    };
-  }
+  // 三项共同决定综合等级：合计档位 T、最短板 Lmin、档位极差 R
+  const grades = tiers.map((t) => t.grade);
+  const T = grades.reduce((sum, g) => sum + g, 0);
+  const Lmin = Math.min(...grades);
+  const R = Math.max(...grades) - Lmin;
 
-  if (total >= 24 && lowAreas.length === 0) {
-    return {
-      title: "优秀通关",
-      summary: "你们在压力下维持了清晰的指挥链，没有用模糊授权换取短期平静，整体表现接近成熟的危机管理团队。",
-      tags,
-    };
+  let title;
+  let judgment;
+
+  if (Lmin === 0) {
+    const broken = tiers.filter((t) => t.grade === 0).map((t) => t.label);
+    title = "单点击穿";
+    judgment = `${broken.join("、")} 已归零，成为整局的致命短板；其余维度虽有支撑，也难以掩盖这一断裂。下一轮务必优先补齐被击穿的环节。`;
+  } else if (T >= 10 && Lmin >= 3) {
+    title = "韧性运营";
+    judgment = "三线均衡且整体高位，指挥链清晰，安全与交付兼顾，接近成熟的危机管理团队。";
+  } else if (T >= 8 && Lmin >= 2 && R <= 2) {
+    title = "稳健防守";
+    judgment = "整体守住，三项差距不大，短板可控，协同稳定；再补齐细节即可迈向高位。";
+  } else if (R >= 3 && Lmin >= 1) {
+    const strong = tiers.reduce((a, b) => (b.grade > a.grade ? b : a));
+    const weak = tiers.reduce((a, b) => (b.grade < a.grade ? b : a));
+    title = "偏科运行";
+    judgment = `${strong.label}表现突出，却以${weak.label}为代价换取；结构明显失衡，下一轮需重点补齐最短板。`;
+  } else {
+    title = "勉力支撑";
+    judgment = "工厂运转未中断，但多个管理机制尚未成型，风险持续外溢；整体处于中低位，需系统性加固。";
   }
 
   return {
-    title: "基本合格",
-    summary: `工厂守住了，但 ${lowAreas.length > 0 ? `${lowAreas.join("、")} 暴露出明显短板。` : "部分回合依赖了临场应对。"} 下一轮应重点修复授权、恢复和追溯机制。`,
+    title,
+    summary: judgment,
     tags,
   };
 }

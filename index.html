@@ -81,7 +81,7 @@
             <ol>
               <li>进入回合后倒计时自动开始（燃烧进度条）。</li>
               <li>阅读事件并在限时内讨论。</li>
-              <li>选择一项管理动作；若触发检定，系统自动掷 d20。</li>
+              <li>选择一项管理动作；若触发检定，系统按确定规则判定。</li>
               <li>结算安全、产能、声誉变化。</li>
               <li>查看检定机制与现实管理复盘。</li>
             </ol>
@@ -89,12 +89,12 @@
           <article class="info-card">
             <h3>检定与超时机制</h3>
             <ul>
-              <li>检定：`基础能力 + 角色加成 + d20 ≥ 难度` 则成功。</li>
+              <li>检定：`基础能力 + 角色加成 ≥ 门槛` 则成功（确定性，无随机）。</li>
               <li>`警觉 +2`：识别严重性与信息质量。</li>
               <li>`控制 +2`：执行隔离、授权、边界收紧。</li>
               <li>`恢复 +1`：降级运行、停线、恢复安排。</li>
-              <li>相关角色卡命中事件标签时提供 `+1` 加成。</li>
-              <li>超时：讨论超时未决策，攻击者利用窗口期，安全 `-4`、产能 `-2`、声誉 `-2`。</li>
+              <li>相关角色卡与事件匹配时提供加成：`检定维度一致且标签命中 = +2`，`只命中其一 = +1`。</li>
+              <li>超时：讨论超时未决策，攻击者利用窗口期，安全 `-6`、产能 `-4`、声誉 `-4`。</li>
             </ul>
           </article>
         </div>
@@ -219,7 +219,7 @@
         </div>
         <div class="result-grid">
           <article class="dice-panel">
-            <div class="dice-face" id="diceFace">d20</div>
+            <div class="dice-face" id="diceFace">判定</div>
             <div class="battle-banner" id="battleBanner"></div>
             <div class="formula" id="resultFormula"></div>
             <p class="narration" id="resultNarration"></p>
